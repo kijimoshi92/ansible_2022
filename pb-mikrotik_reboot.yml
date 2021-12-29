@@ -1,0 +1,10 @@
+#- name: Mikrotik ROS Update
+#  hosts: mikrotik
+
+  connection: paramiko
+  user: inside
+  gather_facts: no
+  tasks:
+   - name: Reboot
+     raw: ":execute {/system reboot;}"
+     register: reboot

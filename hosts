@@ -1,0 +1,20 @@
+[test_bulk_run] ## experimental rabbits
+test1		 ansible_ssh_host=10.0.1.1     subnet=1       lifecellip=1
+[mikrotik] ## Fillial
+test1		 ansible_ssh_host=10.0.1.1     subnet=1       lifecellip=1
+test2        ansible_ssh_host=10.0.2.1     subnet=2       lifecellip=2
+test3        ansible_ssh_host=10.0.3.1     subnet=3       lifecellip=3
+
+
+[mikrotik:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=/home/ansible/.ssh/id_rsa
+tg_token=<tg_token>
+tg_chat=-<tg_chat>
+[mikrotik_core]  ## Core mikrotik
+gw-core               ansible_ssh_host=10.0.0.60  ## VPN POOL
+[mikrotik_core:vars]
+ansible_python_interpreter=/usr/bin/python3
+ansible_ssh_private_key_file=/home/ansible/.ssh/id_rsa
+tg_token=<tg_token>
+tg_chat=-<tg_chat>

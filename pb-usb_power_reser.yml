@@ -1,0 +1,7 @@
+- hosts: mikrotik
+  connection: network_cli
+  gather_facts: false
+  tasks:
+  - name: Run USB reset
+    routeros_command:
+      commands: "/system routerboard usb power-reset duration=10"

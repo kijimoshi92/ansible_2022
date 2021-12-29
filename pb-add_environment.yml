@@ -1,0 +1,7 @@
+- hosts: mikrotik
+  connection: network_cli
+  gather_facts: false
+  tasks:
+  - name: add environment subnet 
+    routeros_command:
+      commands: "global name=subnet value={{subnet}}"

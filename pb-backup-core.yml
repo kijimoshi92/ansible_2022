@@ -1,0 +1,23 @@
+- name: Save file from router
+  hosts: mikrotik_core
+  connection: network_cli
+  gather_facts: false
+  tasks:
+    - name: backup-file create
+      routeros_command:
+        commands: "/system backup save dont-encrypt=yes name={{inventory_hostname}}.backup"
+    - name: backup-file download
+      net_get:
+        src: "{{inventory_hostname}}.backup"
+        protocol: sftp
+        dest : "/mnt/mt_backup/{{ansible_ssh_host}}-{{inventory_hostname}}({{ lookup('pipe','date +%d.%m.%Y') }}).backup"
+    - pause:
+        seconds: 5
+    - name: delete from router
+      routeros_command:
+        commands: "/file remove [find type=backup]"
+    - name: send a message to chat in playbook
+      telegram:
+        token: "{{tg_token}}"
+        chat_id: "{{tg_chat}}"
+        msg: "{{ansible_ssh_host}}/{{inventory_hostname}} [Ansible task]Core backup is done"

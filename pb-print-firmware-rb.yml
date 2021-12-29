@@ -1,0 +1,10 @@
+- hosts: mikrotik
+  connection: network_cli
+  gather_facts: false
+  tasks:
+  - name: Get RB info
+    routeros_command:
+      commands: "/system routerboard print"
+    register: system_print
+  - name: debug print after
+    debug: var=system_print.stdout_lines

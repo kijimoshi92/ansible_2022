@@ -1,0 +1,2 @@
+- name: set acl
+  command: bash -c "cat roles/rsc/set_acl.rsc | ssh {{mikrotik_user}}@{{inventory_hostname}} -p {{ansible_ssh_port}} -o StrictHostKeyChecking=no"

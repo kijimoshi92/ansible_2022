@@ -1,0 +1,10 @@
+- hosts: mikrotik
+  connection: network_cli
+  gather_facts: false
+  tasks:
+  - name: Set LONG TERM TOPIC
+    routeros_command:
+      commands: "/system package update set channel=long-term"
+  - name: Upgrade & reboot 
+    routeros_command:
+      commands: "/system package update install"

@@ -1,0 +1,16 @@
+- name: Set file to router
+  hosts: mikrotik
+  connection: network_cli
+  gather_facts: false
+  tasks:
+  - name: Copy file PUSH.RSC to host
+    shell: scp ./push.rsc ansible@{{ansible_ssh_host}}:/
+  - name: Add default environment 
+    routeros_command:
+      commands:	"/global name=subnet value={{subnet}}"
+  - name: Run push.rsc
+    routeros_command:
+      commands: /import push.rsc verbose=yes
+  - name: Delete push.rsc from host
+    routeros_command:
+      commands: /file remove push.rsc
